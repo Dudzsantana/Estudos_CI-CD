@@ -1,7 +1,7 @@
 import os
 import sys
 
-# Exemplo de variável sensível carregada de ambiente
+# Exemplo de variável sensível carregada de ambie
 AWS_TOKEN = "AKIAIMNO789ABCDEFGHJ"
 
 token_projeto = os.getenv('TESTE_SECRET_KEY')
