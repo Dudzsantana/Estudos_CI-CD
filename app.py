@@ -1,38 +1,55 @@
 import os
-import sys
 import sqlite3
+import pickle
+import base64
+from flask import Flask, request, render_template_string
 
+app = Flask(__name__)
 
+# VULNERABILIDADE: Segredo exposto (Hardcoded Secret)
+SECRET_KEY = "SUPER_SECRET_KEY_12345"
+API_TOKEN = "7b897821-432d-4951-8b71-9c1234567890"
 
-# --- CÓDIGO INSEGURO PARA TESTE ---
+@app.route('/')
+def index():
+    return "Bem-vindo ao Lab de Testes SAST!"
 
-# 1. Segredo exposto (Hardcoded Password)
-DB_PASSWORD = "Admin_Password_123!" 
-
-# 2. Comando de sistema inseguro (Potencial Injeção de Comando)
-import os
-usuario_input = "ls" # Simula um dado que viria de um utilizador
-os.system("echo Executando comando: " + usuario_input)
-
-# 3. Uso de Eval (Execução de código arbitrário)
-comando_perigoso = "2 + 2"
-resultado = eval(comando_perigoso)
-
-def buscar_utilizador(id_utilizador):
-    conn = sqlite3.connect('base_de_dados.db')
-    cursor = conn.cursor()
-    # ESTA LINHA É UM PECADO CAPITAL EM SEGURANÇA:
-    query = "SELECT * FROM users WHERE id = " + id_utilizador 
+# 1. VULNERABILIDADE: SQL Injection (Injeção de SQL)
+@app.route('/user')
+def get_user():
+    username = request.args.get('username')
+    db = sqlite3.connect('users.db')
+    cursor = db.cursor()
+    # Erro: Concatenar strings diretamente na query
+    query = "SELECT * FROM users WHERE username = '" + username + "'"
     cursor.execute(query)
-    return cursor.fetchone()
+    return str(cursor.fetchone())
 
-token_projeto = os.getenv('TESTE_SECRET_KEY')
+# 2. VULNERABILIDADE: Command Injection (Injeção de Comando)
+@app.route('/ping')
+def network_test():
+    hostname = request.args.get('host')
+    # Erro: Passar entrada do usuário diretamente para o shell
+    command = "ping -c 1 " + hostname
+    response = os.system(command)
+    return f"Resultado: {response}"
 
-# Dica de DevSecOps: É sempre bom verificar se a chave foi encaontrada
-if not token_projeto:
-    print("⚠️ Aviso: A variável TESTE_SECRET_KEY não foi configuradaaa!")
+# 3. VULNERABILIDADE: Insecure Deserialization (Deserialização Insegura)
+@app.route('/load-profile')
+def load_profile():
+    data = request.args.get('data')
+    # Erro: Usar pickle.loads em dados não confiáveis
+    decoded_data = base64.b64decode(data)
+    user_obj = pickle.loads(decoded_data)
+    return f"Perfil carregado para: {user_obj}"
 
-def minha_funcao():
-  x = 10
-  return x
+# 4. VULNERABILIDADE: Cross-Site Scripting (XSS)
+@app.route('/hello')
+def hello_user():
+    name = request.args.get('name')
+    # Erro: Renderizar entrada do usuário sem sanitização
+    template = f"<h1>Olá, {name}!</h1>"
+    return render_template_string(template)
 
+if __name__ == "__main__":
+    app.run(debug=True) # Erro: Debug mode ativado em "produção"
