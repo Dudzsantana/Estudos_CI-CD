@@ -1,2 +1,2 @@
-# Este padrão (ghp_ + 36 caracteres) é um alvo clássico do Gitleaks
-token_projeto = "ghp_AbCdEfGhIjKlMnOpQrStUvWxYz0123456789"
+# Um token do GitHub (formato ghp_ seguido de 36 caracteres alfanuméricos)
+admin_token = "ghp_1234567890abcdefghijklmnopqrstuvwxyz"
