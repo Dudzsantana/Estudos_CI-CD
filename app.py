@@ -52,4 +52,4 @@ def hello_user():
     return render_template_string(template)
 
 if __name__ == "__main__":
-    app.run(debug=True) # Erro: Debug mode ativado em "produção"
+    app.run(debug=True) # Erro: Debug mode ativado em "produçãooo"
