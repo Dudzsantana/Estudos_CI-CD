@@ -1,6 +1,9 @@
 import os
 import sys
 
+# Exemplo de variável sensível carregada de ambiente
+AWS_TOKEN = "AKIAIMNO789ABCDEFGHJ"
+
 token_projeto = os.getenv('TESTE_SECRET_KEY')
 
 # Dica de DevSecOps: É sempre bom verificar se a chave foi encaontrada
