@@ -9,7 +9,7 @@ jobs:
       contents: read
       security-events: write
       actions: read
-      
+
     steps:
       - uses: actions/checkout@v4
 
@@ -33,12 +33,12 @@ jobs:
           args: --severity-threshold=high
         
       - name: Iniciar CodeQL Scan
-        uses: github/codeql-action/init@v3
+        uses: github/codeql-action/init@v4
         with:
           languages: python
       
       - name: Perform CodeQL Analysis 
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-action/analyze@v4
 
       - name: Run Script
         env:
