@@ -1,4 +1,4 @@
-name: Gitleaks Scan
+name: Security Scan
 on: [push]
 
 jobs:
@@ -18,7 +18,14 @@ jobs:
       - name: Run Gitleaks Scan
         # O comando 'detect' com '--no-git' vai varrer os arquivos atuais
         run: gitleaks detect --source . --verbose 
-        
+      
+      - name: Snyk Open Source Check
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high
+          
       - name: Run Script
         env:
           TESTE_SECRET_KEY: ${{ secrets.TESTE_SECRET_KEY }}
