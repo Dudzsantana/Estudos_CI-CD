@@ -1,17 +1,8 @@
 import os
 import sys
-
-token_projeto = os.getenv('TESTE_SECRET_KEY')
-
-# Dica de DevSecOps: É sempre bom verificar se a chave foi encaontrada
-if not token_projeto:
-    print("⚠️ Aviso: A variável TESTE_SECRET_KEY não foi configuradaaa!")
+import sqlite3
 
 
-
-def minha_funcao():
-  x = 10
-  return x
 
 # --- CÓDIGO INSEGURO PARA TESTE ---
 
@@ -27,8 +18,6 @@ os.system("echo Executando comando: " + usuario_input)
 comando_perigoso = "2 + 2"
 resultado = eval(comando_perigoso)
 
-import sqlite3
-
 def buscar_utilizador(id_utilizador):
     conn = sqlite3.connect('base_de_dados.db')
     cursor = conn.cursor()
@@ -36,3 +25,14 @@ def buscar_utilizador(id_utilizador):
     query = "SELECT * FROM users WHERE id = " + id_utilizador 
     cursor.execute(query)
     return cursor.fetchone()
+
+token_projeto = os.getenv('TESTE_SECRET_KEY')
+
+# Dica de DevSecOps: É sempre bom verificar se a chave foi encaontrada
+if not token_projeto:
+    print("⚠️ Aviso: A variável TESTE_SECRET_KEY não foi configuradaaa!")
+
+def minha_funcao():
+  x = 10
+  return x
+
