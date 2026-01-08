@@ -1,9 +1,8 @@
 import os
 
-# O Python busca a variável no ambiente do GitHub
-api_key = os.getenv('MINHA_CHAVE_SECRETA')
+# Em vez de 'ghp_123...', pedimos ao sistema a variável 'GITHUB_TOKEN'
+token_projeto = os.getenv('TESTE_SECRET_KEY')
 
-if api_key:
-    print("Conectado com sucesso!")
-else:
-    print("Erro: Chave não encontrada no ambiente.")
+# Dica de DevSecOps: É sempre bom verificar se a chave foi encontrada
+if not token_projeto:
+    print("⚠️ Aviso: A variável TESTE_SECRET_KEY não foi configurada!")
