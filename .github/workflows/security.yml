@@ -18,6 +18,14 @@ jobs:
       - name: Run Gitleaks Scan
         # O comando 'detect' com '--no-git' vai varrer os arquivos atuais
         run: gitleaks detect --source . --no-git --verbose 
+      - name: Debug README content
+        run: |
+          echo "--- Linha 42 ---"
+          sed -n '42p' README.md
+          echo "--- Linhas 221-223 ---"
+          sed -n '221,223p' README.md
+          echo "--- Linha 259 ---"
+          sed -n '259p' README.md
       - name: Run Script
         env:
           MINHA_CHAVE_SECRETA: ${{ secrets.TESTE_SECRET_KEY }}
