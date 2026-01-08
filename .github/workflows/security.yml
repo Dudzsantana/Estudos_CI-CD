@@ -7,15 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Run Gitleaks
-        # Aqui usamos a versão que analisa os arquivos diretamente
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          # O argumento --no-git força o Gitleaks a ler os arquivos na pasta
-          # em vez de confiar apenas nas mensagens de commit do Git.
-          args: detect --verbose --source . --no-git
+      - name: Install Gitleaks
+        run: |
+          VERSION="8.18.2"
+          wget https://github.com/gitleaks/gitleaks/releases/download/v${VERSION}/gitleaks_${VERSION}_linux_x64.tar.gz
+          tar -xf gitleaks_${VERSION}_linux_x64.tar.gz
+          sudo mv gitleaks /usr/local/bin/
+
+      - name: Run Gitleaks Scan
+        # O comando 'detect' com '--no-git' vai varrer os arquivos atuais
+        run: gitleaks detect --source . --no-git --verbose
