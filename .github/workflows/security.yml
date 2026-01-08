@@ -15,18 +15,18 @@ jobs:
           tar -xf gitleaks_${VERSION}_linux_x64.tar.gz
           sudo mv gitleaks /usr/local/bin/
 
-      - name: Run Gitleaks Scan
-        # O comando 'detect' com '--no-git' vai varrer os arquivos atuais
-        run: gitleaks detect --source . --no-git --verbose 
-        
+      - name: Hard Reset and Scan
+        run: |
+          # Remove tudo que não está no último commit
+          git clean -fdx
+          git reset --hard HEAD
+          
+          echo "--- Verificando arquivos restantes ---"
+          ls -R
+          
+          # Roda o scan apenas no diretório atual, sem olhar histórico
+          gitleaks detect --source . --no-git --verbose
       - name: Run Script
         env:
           MINHA_CHAVE_SECRETA: ${{ secrets.TESTE_SECRET_KEY }}
         run: python config.py
-
-      - name: Force Clean and List
-        run: |
-          # Remove arquivos que não estão rastreados pelo Git
-          git clean -fdx 
-          # Lista os arquivos para termos certeza do que o Gitleaks vai ver
-          ls -R
