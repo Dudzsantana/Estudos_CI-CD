@@ -17,4 +17,8 @@ jobs:
 
       - name: Run Gitleaks Scan
         # O comando 'detect' com '--no-git' vai varrer os arquivos atuais
-        run: gitleaks detect --source . --no-git --verbose
+        run: gitleaks detect --source . --no-git --verbose 
+      - name: Run Script
+        env:
+          MINHA_CHAVE_SECRETA: ${{ secrets.TESTE_SECRET_KEY }}
+        run: python config.py
