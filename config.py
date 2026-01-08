@@ -1,6 +1,5 @@
 import os
-import os
-import sys # Importado mas nunca usado
+import sys
 
 token_projeto = os.getenv('TESTE_SECRET_KEY')
 
@@ -12,4 +11,4 @@ if not token_projeto:
 
 def minha_funcao():
   x = 10
-    return x # Erro de indentação aqui
+  return x
