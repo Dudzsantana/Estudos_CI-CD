@@ -23,3 +23,10 @@ jobs:
         env:
           MINHA_CHAVE_SECRETA: ${{ secrets.TESTE_SECRET_KEY }}
         run: python config.py
+
+      - name: Force Clean and List
+        run: |
+          # Remove arquivos que não estão rastreados pelo Git
+          git clean -fdx 
+          # Lista os arquivos para termos certeza do que o Gitleaks vai ver
+          ls -R
