@@ -26,3 +26,13 @@ os.system("echo Executando comando: " + usuario_input)
 # 3. Uso de Eval (Execução de código arbitrário)
 comando_perigoso = "2 + 2"
 resultado = eval(comando_perigoso)
+
+import sqlite3
+
+def buscar_utilizador(id_utilizador):
+    conn = sqlite3.connect('base_de_dados.db')
+    cursor = conn.cursor()
+    # ESTA LINHA É UM PECADO CAPITAL EM SEGURANÇA:
+    query = "SELECT * FROM users WHERE id = " + id_utilizador 
+    cursor.execute(query)
+    return cursor.fetchone()
