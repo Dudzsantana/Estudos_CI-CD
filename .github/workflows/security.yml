@@ -9,6 +9,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
+
+      - name: Run Gitleaks
+        # Aqui usamos a versão que analisa os arquivos diretamente
+        uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # O argumento --no-git força o Gitleaks a ler os arquivos na pasta
+          # em vez de confiar apenas nas mensagens de commit do Git.
+          args: detect --verbose --source . --no-git
