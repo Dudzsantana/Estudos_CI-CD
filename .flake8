@@ -1,0 +1,7 @@
+[flake8]
+# Ignorar o erro F401 (import não usado)
+ignore = F401
+# Definir o comprimento máximo da linha
+max-line-length = 88
+# Pastas a não verificar
+exclude = .git,__pycache__,env,venv
