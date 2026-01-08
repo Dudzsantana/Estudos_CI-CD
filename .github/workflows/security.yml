@@ -44,5 +44,5 @@ jobs:
       - name: Run Script
         env:
           TESTE_SECRET_KEY: ${{ secrets.TESTE_SECRET_KEY }}
-        run: python config.py
+        run: python app1.py
       
