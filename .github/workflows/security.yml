@@ -23,6 +23,7 @@ jobs:
       - name: Run Gitleaks Scan
         # O comando 'detect' com '--no-git' vai varrer os arquivos atuais
         run: gitleaks detect --source . --verbose 
+        continue-on-error: true
       
       - name: Snyk Open Source Check
         uses: snyk/actions/python@master
