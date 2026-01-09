@@ -24,7 +24,7 @@ jiter==0.12.0
 litecli==1.17.0
 llm==0.27.1
 MarkupSafe==3.0.3
-mypy==1.18.2
+mypy==1.19.1
 mypy_extensions==1.1.0
 objection==1.11.0
 openai==2.8.0
