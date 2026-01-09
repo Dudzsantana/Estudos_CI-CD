@@ -27,7 +27,7 @@ MarkupSafe==3.0.3
 mypy==1.18.2
 mypy_extensions==1.1.0
 objection==1.11.0
-openai==2.8.0
+openai==2.14.0
 pathspec==0.12.1
 pexpect==4.9.0
 pluggy==1.6.0
